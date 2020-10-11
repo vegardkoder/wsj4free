@@ -25,7 +25,20 @@ def get_google_link(header):
     result = soup.find_all("div", {"class": "kCrYT"})[2]
 
     link = result.a['href'][7:].split("&")[0]
-    name = result.text.split("»")[0]
+    name = result.text.split("»")[0].split("›")[0]
     date = soup.find_all("div", {"class": "kCrYT"})[3].text.split("·")[0]
 
+    if date[0] != 'f':
+        date = "null or not recent"
+
     return [date, name, link]
+
+def get_google_links(headers):
+    links = []
+    for header in headers:
+        try:
+            links.append(get_google_link(header))
+        except:
+            pass
+
+    return links
