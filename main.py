@@ -22,8 +22,8 @@ def get_google_link(header):
     response = urlopen(Request(url, headers={'User-Agent': 'Mozilla/5.0'}))
     soup = BeautifulSoup(response.read(), features="lxml")
 
-    result = soup.find("div", {"class": "kCrYT"}).a
+    result = soup.find("div", {"class": "kCrYT"}).a['href'][7:].split("&")[0]
 
-    print(result)
+    return result
 
-get_google_link("U.S. Covid-Testing Plan Aims to Open New York-London Travel by Holidays")
+print(get_google_link(get_articles()[0]))
